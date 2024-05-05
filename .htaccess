@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !\.(js|css|ico|jpg|png)$
+RewriteCond %{REQUEST_URI} !404.html$
+RewriteRule .* index.php

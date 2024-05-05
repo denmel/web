@@ -1,0 +1,67 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#main-layout{
+    display: grid;
+    grid-template-areas: "header header"
+                         "aside main";
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 200px 1fr;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+header{
+    grid-area: header;
+    background-color: grey;
+}
+
+header>nav{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,200px);
+    height: 100%;
+}
+
+aside{
+    grid-area: aside;
+    background-color: dodgerblue;
+}
+
+aside>nav{
+    display: grid;
+    grid-template-rows: repeat(3,100px);
+}
+
+.main-menu-button, .left-menu-button{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+    background-color: green;
+    cursor: pointer;
+    user-select: none;
+}
+.main-menu-button>span, .left-menu-button>span {
+    margin: auto;
+}
+
+.list{
+    border-collapse: collapse;
+    cursor: pointer;
+    user-select: none;
+}
+
+td, th{
+    border: solid 1px black;
+}
+
+tbody>tr:hover{
+    background-color: grey;
+}
+
+tr.selected {
+    background-color: red;
+}
