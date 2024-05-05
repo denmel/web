@@ -1,4 +1,5 @@
 <?php
+namespace App\routes;
 
 class Route
 {
@@ -26,6 +27,7 @@ class Route
             Route::ErrorPage404();
         }
 
+        $controller_name = "App\\Http\\Controllers\\".$controller_name;
         $controller = new $controller_name;
 
         if (method_exists($controller, $action_name)) {

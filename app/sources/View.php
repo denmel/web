@@ -1,8 +1,9 @@
 <?php
-
+namespace App\sources;
 class View
 {
-    function generate ($content, $left_menu_items, $template){
+    function generate ($content, $left_menu_items, $template): void
+    {
         include $template;
     }
 

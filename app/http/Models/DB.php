@@ -1,5 +1,8 @@
 <?php
 
+namespace App\http\Models;
+use PDO;
+
 class DB
 {
     public PDO $conn;
@@ -19,7 +22,7 @@ class DB
         return $stmt->rowCount();
     }
 
-    public function select($sql, $params = []): false|PDOStatement
+    public function select($sql, $params = []): false|\PDOStatement
     {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($params);

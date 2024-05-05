@@ -1,4 +1,4 @@
 <?php
-require_once __DIR__.'/../routes/Route.php';
+use App\routes\Route;
 
 Route::start();

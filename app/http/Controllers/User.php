@@ -1,12 +1,13 @@
 <?php
 
-require_once __DIR__ . "/../Models/UserTable.php";
-require_once __DIR__."/Controller.php";
+namespace App\http\Controllers;
+
+use App\http\Models\UserTable;
 
 class User extends Controller
 {
-    private $model;
-    private $left_menu_items = [['caption'=>'Добавить', 'id'=>'btn_add', 'action'=>'/Kid/add'],
+    private UserTable $model;
+    private array $left_menu_items = [['caption'=>'Добавить', 'id'=>'btn_add', 'action'=>'/Kid/add'],
         ['caption'=>'Удалить', 'id'=>'btn_del', 'action'=>'/Kid/del'],
         ['caption'=>'Изменить', 'id'=>'btn_upd', 'action'=>'/Kid/upd']
     ];
@@ -17,21 +18,21 @@ class User extends Controller
         $this->model = new UserTable();
     }
 
-    public function getAll()
+    public function getAll(): void
     {
         $rows = $this->model->getAllRecords();
         $content = $this->view->arrayToTable($rows, $this->model->headers, "list");
         $this->view->generate($content,  $this->left_menu_items, "template_main.php");
     }
 
-    public function del()
+    public function del(): void
     {
         $ids = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
         $rowCount = $this->model->delRecords($ids['ids']);
         echo json_encode(['count'=>$rowCount]);
     }
 
-    public function add()
+    public function add(): void
     {
         ob_start();
         $src='http://'.$_SERVER['HTTP_HOST'].'/User/addUser';
@@ -47,7 +48,7 @@ class User extends Controller
 
     }
 
-    public function addUser()
+    public function addUser(): void
     {
         if (isset($_POST['login']) and isset($_POST['password']) and isset($_POST['fio']) and isset($_POST['id_role']) and isset($_POST['id_kidgroup']))
         {

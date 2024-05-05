@@ -1,9 +1,12 @@
 <?php
 
-require_once __DIR__."/../../sources/View.php";
+namespace App\http\Controllers;
+
+use App\sources\View;
+
 abstract class Controller
 {
-    protected $view;
+    protected View $view;
 
     function __construct()
     {

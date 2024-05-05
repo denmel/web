@@ -1,0 +1,19 @@
+{
+  "name": "mgutu/kids",
+  "description": "example",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "den",
+      "email": "dsmirnov@mfmgutu.ru"
+    }
+  ],
+  "require": {
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}

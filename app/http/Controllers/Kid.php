@@ -1,12 +1,13 @@
 <?php
 
-require_once __DIR__."/../Models/KidTable.php";
-require_once __DIR__."/Controller.php";
+namespace App\http\Controllers;
+
+use App\http\Models\KidTable;
 
 class Kid extends Controller
 {
-    private $model;
-    private $left_menu_items = [['caption'=>'Добавить', 'id'=>'btn_add', 'action'=>'/Kid/add'],
+    private KidTable $model;
+    private array $left_menu_items = [['caption'=>'Добавить', 'id'=>'btn_add', 'action'=>'/Kid/add'],
         ['caption'=>'Удалить', 'id'=>'btn_del', 'action'=>'/Kid/del'],
         ['caption'=>'Изменить', 'id'=>'btn_upd', 'action'=>'/Kid/upd']
     ];
@@ -17,21 +18,21 @@ class Kid extends Controller
         $this->model = new KidTable();
     }
 
-    public function getAll()
+    public function getAll(): void
     {
         $rows = $this->model->getAllRecords();
         $content = $this->view->arrayToTable($rows, $this->model->headers, "list");
         $this->view->generate($content, $this->left_menu_items,"template_main.php");
     }
 
-    public function del()
+    public function del(): void
     {
         $ids = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
         $rowCount = $this->model->delRecords($ids['ids']);
         echo json_encode(['count'=>$rowCount]);
     }
 
-    public function add()
+    public function add(): void
     {
         ob_start();
         $src='http://'.$_SERVER['HTTP_HOST'].'/Kid/addKid';
@@ -45,7 +46,7 @@ class Kid extends Controller
 
     }
 
-    public function addKid()
+    public function addKid(): void
     {
         if (isset($_POST['fio']) and isset($_POST['id_kidgroup']) and isset($_POST['id_parent']))
         {

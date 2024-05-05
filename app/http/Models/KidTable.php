@@ -1,12 +1,12 @@
 <?php
 
-require_once __DIR__."/Table.php";
+namespace App\http\Models;
 
 class KidTable extends Table
 {
     public array $headers = ["id_kid" => "id", "fio" => "ФИО", "id_kidgroup" => "Группа", "id_parent" => "Родитель"];
 
-    public function getAllRecords(): false|PDOStatement
+    public function getAllRecords(): false|\PDOStatement
     {
         return $this->db->select("SELECT * FROM kid;");
     }

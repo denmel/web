@@ -1,6 +1,7 @@
 <?php
 
-require_once __DIR__."/DB.php";
+namespace App\http\Models;
+
 abstract class Table
 {
     public DB $db;
