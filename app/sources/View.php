@@ -15,7 +15,8 @@ class View
         if ($class) echo " class='$class'";
         if($id) echo " id='$id'";
         echo "><thead><tr><th>№</th>";
-        foreach (array_splice($headers, 1) as $header) {
+        foreach (array_slice($headers, 1) as $header)
+        {
             echo "<th>$header</th>";
         }
         echo "</tr></thead><tbody>";
@@ -31,13 +32,11 @@ class View
         return ob_get_clean();
     }
 
-    public function createInput($label, $type, $name): false|string
+    public function createInput($label, $type, $name, $value=''): false|string
     {
         ob_start();
         echo "<label for='$name'>$label:</$label><br>";
-
-        echo "<input type='$type' id='$name' name='$name'/><br>";
+        echo "<input type='$type' id='$name' name='$name' value='$value'/><br>";
         return ob_get_clean();
     }
-
 }

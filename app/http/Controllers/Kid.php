@@ -35,7 +35,7 @@ class Kid extends Controller
     public function add(): void
     {
         ob_start();
-        $src='http://'.$_SERVER['HTTP_HOST'].'/Kid/addKid';
+        $src = '/Kid/addKid';
         echo "<form action='$src' method='POST'/>";
         echo $this->view->createInput("ФИО ребенка", "text", "fio");
         echo $this->view->createInput("Группа", "text", "id_kidgroup");
@@ -43,7 +43,6 @@ class Kid extends Controller
         echo "<input type='Submit' value='Добавить'>";
         echo "</form>";
         $this->view->generate(ob_get_clean(), $this->left_menu_items, "template_main.php");
-
     }
 
     public function addKid(): void
@@ -54,4 +53,30 @@ class Kid extends Controller
         }
         header('Location: /Kid/getAll');
     }
+
+    public function upd($id)
+    {
+        ob_start();
+        $row = $this->model->getRecordById($id)->fetch();
+        $src = "/Kid/updKid";
+        echo "<form action='$src' method='POST'>";
+        echo $this->view->createInput("Id", "text", "id_kid", $row['id_kid']);
+        echo $this->view->createInput("ФИО ребенка", "text", "fio", $row['fio']);
+        echo $this->view->createInput("Группа", "text", "id_kidgroup", $row['id_kidgroup']);
+        echo $this->view->createInput("Родитель", "text", "id_parent", $row['id_parent']);
+        echo "<input type='submit' value='Изменить'>";
+        echo "</form>";
+        $this->view->generate(ob_get_clean(), $this->left_menu_items, 'template_main.php');
+    }
+
+    public function updKid()
+    {
+        if (isset($_POST['fio']) and isset($_POST['id_kidgroup']) and isset($_POST['id_parent']))
+        {
+            $this->model->updRecord(['id_kid'=>$_POST['id_kid'], 'fio'=>$_POST['fio'], 'id_kidgroup'=>$_POST['id_kidgroup'], 'id_parent'=>$_POST['id_parent']]);
+        }
+        header('Location: /Kid/getAll');
+    }
+
+
 }

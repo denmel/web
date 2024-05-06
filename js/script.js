@@ -23,3 +23,12 @@ btn_del.addEventListener('click', ()=>{
           alert('Удалено записей: ' + result['count']);
        });
 });
+
+let btn_upd = document.getElementById('btn_upd');
+btn_upd.addEventListener("click",()=>{
+    let ids = {ids:[]};
+    Array.from(list.getElementsByClassName('selected')).forEach(row=>{
+        ids['ids'].push(row.dataset.id);
+    });
+    window.location.href = btn_upd.getAttribute('action')+'/'+ids['ids'][0];
+});

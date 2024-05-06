@@ -19,7 +19,11 @@ class Route
             $action_name = $routes[2];
         }
 
-        $controller_path = "app/Http/controllers/$controller_name.php";
+        if (!empty($routes[3])) {
+            $param = $routes[3];
+        }
+
+        $controller_path = "app/http/Controllers/$controller_name.php";
 
         if (file_exists($controller_path)) {
             include_once $controller_path;
@@ -31,8 +35,17 @@ class Route
         $controller = new $controller_name;
 
         if (method_exists($controller, $action_name)) {
-            $controller->$action_name();
-        } else {
+            if (isset($param))
+            {
+                $controller->$action_name($param);
+            }
+            else
+            {
+                $controller->$action_name();
+            }
+        }
+        else 
+        {
             Route::ErrorPage404();
         }
     }
